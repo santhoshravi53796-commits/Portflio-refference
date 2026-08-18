@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ============================================================
+  Santhosh R — Personal Portfolio
+  Single-file build: HTML + CSS + Vanilla JS
+  Design direction: deep-space indigo canvas with a live neural
+  network signature (nodes + synapses), reflecting an AI/ML
+  learning journey. Kept quiet and professional everywhere else.
+  ============================================================
+-->
+<head>
+<!-- ============ META ============ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santhosh R — Machine Learning &amp; Software Developer</title>
+<meta name="description" content="Portfolio of Santhosh R, an aspiring AI/ML professional and full-stack developer based in Coimbatore, Tamil Nadu.">
+
+<!-- ============ FONTS ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ============ CSS ============ -->
+<style>
+  /* -------------------------------------------------------
+     0. TOKENS
+  ------------------------------------------------------- */
+  :root{
+    --bg:            #0a0e18;
+    --bg-panel:      #121829;
+    --bg-panel-2:    #1a2338;
+    --border:        rgba(232, 236, 245, 0.09);
+    --border-strong: rgba(232, 236, 245, 0.18);
+
+    --text:          #e9ecf5;
+    --text-muted:    #8d96ac;
+    --text-faint:    #5b6478;
+
+    --violet:        #8b7fff;
+    --violet-soft:   rgba(139, 127, 255, 0.14);
+    --teal:          #4fd1c5;
+    --teal-soft:     rgba(79, 209, 197, 0.14);
+
+    --font-display:  'Space Grotesk', sans-serif;
+    --font-body:     'Inter', sans-serif;
+    --font-mono:     'JetBrains Mono', monospace;
+
+    --radius-s:  10px;
+    --radius-m:  16px;
+    --radius-l:  24px;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* -------------------------------------------------------
+     1. RESET & BASE
+  ------------------------------------------------------- */
+  *, *::before, *::after{ box-sizing: border-box; margin: 0; padding: 0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img{ max-width: 100%; display: block; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  ul{ list-style: none; }
+
+  h1, h2, h3{ font-family: var(--font-display); line-height: 1.15; letter-spacing: -0.01em; }
+
+  section{ position: relative; padding: 120px 24px; }
+
+  .wrap{ max-width: 1080px; margin: 0 auto; }
+
+  ::selection{ background: var(--violet-soft); color: var(--text); }
+
+  :focus-visible{
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* -------------------------------------------------------
+     2. UTILITIES
+  ------------------------------------------------------- */
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 18px;
+  }
+
+  .eyebrow::before{
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px var(--teal-soft);
+    flex-shrink: 0;
+  }
+
+  .section-head{ max-width: 640px; margin-bottom: 56px; }
+
+  .section-head h2{ font-size: clamp(28px, 4vw, 40px); font-weight: 600; }
+
+  .section-head p{ color: var(--text-muted); margin-top: 14px; font-size: 16px; }
+
+  .glass{
+    background: linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-l);
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 13px 26px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .btn:hover{ transform: translateY(-2px); }
+
+  .btn-primary{
+    background: linear-gradient(135deg, var(--violet), #6f5ff0);
+    color: #ffffff;
+    box-shadow: 0 8px 24px -8px rgba(139, 127, 255, 0.55);
+  }
+  .btn-primary:hover{ box-shadow: 0 12px 30px -8px rgba(139, 127, 255, 0.7); }
+
+  .btn-outline{
+    background: transparent;
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+  .btn-outline:hover{ border-color: var(--teal); background: var(--teal-soft); }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .reveal.is-visible{ opacity: 1; transform: translateY(0); }
+  .reveal-delay-1{ transition-delay: 0.08s; }
+  .reveal-delay-2{ transition-delay: 0.16s; }
+  .reveal-delay-3{ transition-delay: 0.24s; }
+
+  /* -------------------------------------------------------
+     3. SCROLL PROGRESS BAR
+  ------------------------------------------------------- */
+  #scroll-progress{
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--teal), var(--violet));
+    z-index: 1000;
+    transition: width 0.1s linear;
+  }
+
+  /* -------------------------------------------------------
+     4. NAVIGATION
+  ------------------------------------------------------- */
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    padding: 18px 24px;
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease), padding 0.4s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+
+  header.scrolled{
+    background: rgba(10, 14, 24, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: var(--border);
+    padding: 13px 24px;
+  }
+
+  nav{
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo span{ color: var(--teal); }
+
+  .nav-links{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-links a{
+    position: relative;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+
+  .nav-links a:hover{ color: var(--text); }
+
+  .nav-links a.active{ color: var(--text); background: var(--bg-panel-2); }
+
+  .nav-cta{ display: none; }
+  @media (min-width: 720px){ .nav-cta{ display: inline-flex; } }
+
+  /* mobile hamburger */
+  .hamburger{
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 950;
+  }
+  .hamburger span{
+    width: 22px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+  }
+  .hamburger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity: 0; }
+  .hamburger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 719px){
+    .hamburger{ display: flex; }
+    .nav-links{
+      position: fixed;
+      inset: 0 0 0 30%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 40px;
+      background: rgba(10, 14, 24, 0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid var(--border);
+      transform: translateX(100%);
+      transition: transform 0.45s var(--ease);
+    }
+    .nav-links.open{ transform: translateX(0); }
+    .nav-links a{ font-size: 19px; padding: 10px 0; }
+  }
+
+  /* -------------------------------------------------------
+     5. HERO
+  ------------------------------------------------------- */
+  #hero{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 140px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #neural-canvas{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  #hero::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 55% at 50% 30%, transparent, var(--bg) 78%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-inner{ position: relative; z-index: 2; max-width: 720px; margin: 0 auto; text-align: center; }
+
+  .hero-inner h1{
+    font-size: clamp(40px, 7vw, 68px);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .hero-role{
+    font-family: var(--font-mono);
+    font-size: clamp(13px, 2vw, 15.5px);
+    color: var(--teal);
+    letter-spacing: 0.02em;
+    margin-bottom: 26px;
+  }
+
+  .hero-role .sep{ color: var(--text-faint); margin: 0 8px; }
+
+  .hero-intro{
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 560px;
+    margin: 0 auto 38px;
+  }
+
+  .hero-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 34px;
+  }
+
+  .hero-links{
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-links a{
+    color: var(--text-muted);
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.3s var(--ease);
+  }
+  .hero-links a:hover{ color: var(--teal); }
+
+  .scroll-cue{
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: floatY 2.4s ease-in-out infinite;
+  }
+
+  @keyframes floatY{
+    0%, 100%{ transform: translate(-50%, 0); }
+    50%{ transform: translate(-50%, 8px); }
+  }
+
+  /* -------------------------------------------------------
+     6. ABOUT
+  ------------------------------------------------------- */
+  #about .about-grid{
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media (max-width: 780px){ #about .about-grid{ grid-template-columns: 1fr; } }
+
+  #about p{ color: var(--text-muted); font-size: 16.5px; margin-bottom: 16px; }
+
+  .fact-card{ padding: 30px; }
+
+  .fact-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14.5px;
+  }
+  .fact-row:last-child{ border-bottom: none; }
+
+  .fact-label{
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .fact-value{ color: var(--text); font-weight: 500; text-align: right; }
+
+  /* -------------------------------------------------------
+     7. EDUCATION
+  ------------------------------------------------------- */
+  .edu-card{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
+    align-items: center;
+    padding: 34px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edu-card::before{
+    content: '';
+    position: absolute;
+    top: -40%; right: -10%;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, var(--violet-soft), transparent 70%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px){
+    .edu-card{ grid-template-columns: 1fr; text-align: left; gap: 18px; }
+  }
+
+  .edu-icon{
+    width: 52px; height: 52px;
+    border-radius: var(--radius-s);
+    background: var(--violet-soft);
+    color: var(--violet);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .edu-degree{ font-family: var(--font-display); font-size: 21px; font-weight: 600; margin-bottom: 6px; }
+
+  .edu-institution{ color: var(--text-muted); font-size: 15px; margin-bottom: 4px; }
+
+  .edu-years{ font-family: var(--font-mono); font-size: 13px; color: var(--text-faint); }
+
+  .edu-cgpa{
+    font-family: var(--font-mono);
+    text-align: center;
+    padding: 14px 20px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-s);
+    flex-shrink: 0;
+  }
+  .edu-cgpa .num{ font-size: 24px; font-weight: 600; color: var(--teal); display: block; }
+  .edu-cgpa .lbl{ font-size: 10.5px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* -------------------------------------------------------
+     8. BEYOND (hobbies / interests / languages)
+  ------------------------------------------------------- */
+  .beyond-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .beyond-card{
+    padding: 28px;
+    transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
+  }
+  .beyond-card:hover{ border-color: var(--border-strong); transform: translateY(-4px); }
+
+  .beyond-card .b-icon{
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--teal-soft);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .beyond-card h3{ font-size: 16.5px; font-weight: 600; margin-bottom: 8px; }
+
+  .beyond-card p{ color: var(--text-muted); font-size: 14.5px; }
+
+  /* -------------------------------------------------------
+     9. CONTACT
+  ------------------------------------------------------- */
+  #contact .contact-panel{
+    padding: 56px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact .contact-panel::before{
+    content: '';
+    position: absolute;
+    top: -30%; left: 50%;
+    transform: translateX(-50%);
+    width: 480px; height: 240px;
+    background: radial-gradient(ellipse, var(--violet-soft), transparent 70%);
+    pointer-events: none;
+  }
+
+  #contact h2{ font-size: clamp(26px, 4vw, 36px); margin-bottom: 12px; position: relative; }
+
+  #contact > .wrap > p.lede{ color: var(--text-muted); max-width: 480px; margin: 0 auto 36px; position: relative; }
+
+  .contact-methods{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    position: relative;
+  }
+
+  .contact-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    font-size: 14px;
+    font-family: var(--font-mono);
+    background: var(--bg-panel);
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .contact-chip:hover{ border-color: var(--teal); background: var(--teal-soft); }
+
+  .contact-chip.copied{ border-color: var(--teal); color: var(--teal); }
+
+  /* -------------------------------------------------------
+     10. FOOTER
+  ------------------------------------------------------- */
+  footer{
+    padding: 36px 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  footer p{
+    color: var(--text-faint);
+    font-size: 13.5px;
+    font-family: var(--font-mono);
+  }
+
+  /* -------------------------------------------------------
+     11. BACK TO TOP
+  ------------------------------------------------------- */
+  #back-to-top{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), border-color 0.35s var(--ease);
+    z-index: 800;
+  }
+  #back-to-top.visible{ opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #back-to-top:hover{ border-color: var(--teal); }
+
+  /* -------------------------------------------------------
+     12. RESPONSIVE FINE-TUNES
+  ------------------------------------------------------- */
+  @media (max-width: 540px){
+    section{ padding: 88px 20px; }
+    .edu-cgpa{ align-self: flex-start; }
+    .contact-methods{ flex-direction: column; align-items: stretch; }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div id="scroll-progress"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header id="site-header">
+    <nav>
+      <a href="#hero" class="logo">Santhosh<span>.</span></a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero" data-nav>Home</a></li>
+        <li><a href="#about" data-nav>About</a></li>
+        <li><a href="#education" data-nav>Education</a></li>
+        <li><a href="#beyond" data-nav>Beyond</a></li>
+        <li><a href="#contact" data-nav>Contact</a></li>
+      </ul>
+
+      <a href="#contact" class="btn btn-primary nav-cta">Get in touch</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" aria-label="Introduction">
+    <canvas id="neural-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero-inner">
+      <p class="eyebrow">Coimbatore, Tamil Nadu, India</p>
+      <h1>Santhosh R</h1>
+      <p class="hero-role">Machine Learning Engineering <span class="sep">/</span> Software Development <span class="sep">/</span> Full Stack Development</p>
+      <p class="hero-intro">
+        Aspiring AI/ML professional currently pursuing studies in Artificial Intelligence and Machine Learning —
+        passionate about data science, Python, and building intelligent solutions to real-world problems.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Contact Me</a>
+        <a href="https://www.linkedin.com/in/santhosh-r-undefined-387b1b42a/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><path d="M7 1V17M7 17L1 11M7 17L13 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" aria-label="About me">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">About</p>
+        <h2>Where I'm starting from</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="reveal">
+          <p>
+            I'm an aspiring AI/ML professional, currently pursuing my studies in Artificial Intelligence and
+            Machine Learning. I'm passionate about machine learning, data science, and Python — and about turning
+            that knowledge into intelligent solutions for real problems.
+          </p>
+          <p>
+            Right now I'm focused on learning deeply, building hands-on projects, and gaining the practical
+            experience that bridges the classroom and the industry.
+          </p>
+        </div>
+
+        <div class="fact-card glass reveal reveal-delay-1">
+          <div class="fact-row">
+            <span class="fact-label">Location</span>
+            <span class="fact-value">Coimbatore, Tamil Nadu, IN</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Email</span>
+            <span class="fact-value">santhoshravi53796@gmail.com</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Phone</span>
+            <span class="fact-value">+91 88388 24580</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Languages</span>
+            <span class="fact-value">English, Tamil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section id="education" aria-label="Education">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Education</p>
+        <h2>Academic background</h2>
+      </div>
+
+      <div class="edu-card glass reveal">
+        <div class="edu-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8L12 13L22 8L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 10.5V16C6 16 8.5 18 12 18C15.5 18 18 16 18 16V10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div>
+          <p class="edu-degree">B.Tech, Artificial Intelligence &amp; Machine Learning</p>
+          <p class="edu-institution">Sri Shakthi Institute of Engineering and Technology</p>
+          <p class="edu-years">2025 — 2029</p>
+        </div>
+
+        <div class="edu-cgpa">
+          <span class="num">7.1</span>
+          <span class="lbl">CGPA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEYOND (hobbies / interests) ============ -->
+  <section id="beyond" aria-label="Beyond work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Beyond the Code</p>
+        <h2>What I enjoy outside class</h2>
+      </div>
+
+      <div class="beyond-grid">
+        <div class="beyond-card glass reveal">
+          <div class="b-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 3C12 3 15 7 15 12C15 17 12 21 12 21" stroke="currentColor" stroke-width="1.6"/><path d="M3 12H21" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Cricket</h3>
+          <p>An active interest and a favourite way to unwind — both playing and following the game.</p>
+        </div>
+
+        <div class="beyond-card glass reveal reveal-delay-1">
+          <div class="b-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12C3 12 6 5 12 5C18 5 21 12 21 12C21 12 18 19 12 19C6 19 3 12 3 12Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Travelling</h3>
+          <p>Enjoy exploring new places, along with watching movies and listening to music in downtime.</p>
+        </div>
+
+        <div class="beyond-card glass reveal reveal-delay-2">
+          <div class="b-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 8H19M5 8C5 8 5 19 5 19H19C19 19 19 8 19 8M5 8L7 4H17L19 8" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Languages</h3>
+          <p>Fluent in English and Tamil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" aria-label="Contact">
+    <div class="wrap">
+      <div class="contact-panel glass reveal">
+        <p class="eyebrow" style="justify-content:center;">Contact</p>
+        <h2>Let's talk</h2>
+        <p class="lede">Open to internships, collaborations, and opportunities to learn and build. Reach out any time.</p>
+
+        <div class="contact-methods">
+          <button class="contact-chip" id="copy-email" type="button" aria-label="Copy email address">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6H20V18H4V6Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6L12 13L20 6" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span id="email-text">santhoshravi53796@gmail.com</span>
+          </button>
+
+          <a class="contact-chip" href="tel:+918838824580">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3H9L11 8L8.5 9.5C9.5 12 12 14.5 14.5 15.5L16 13L21 15V18C21 19.1 20.1 20 19 20C10.7 19.5 4.5 13.3 4 5C4 3.9 4.9 3 6 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            +91 88388 24580
+          </a>
+
+          <a class="contact-chip" href="https://www.linkedin.com/in/santhosh-r-undefined-387b1b42a/" target="_blank" rel="noopener noreferrer">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 10V17M7.5 7V7.01M11.5 17V10M11.5 13C11.5 11 13 10 14.5 10C16 10 16.5 11 16.5 13V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <p>&copy; <span id="year"></span> Santhosh R — Built with intention.</p>
+  </footer>
+
+  <!-- ============ BACK TO TOP ============ -->
+  <button id="back-to-top" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <!-- ============ JAVASCRIPT ============ -->
+  <script>
+  (function(){
+    'use strict';
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------------------------------------------------
+       Footer year
+    --------------------------------------------------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ---------------------------------------------------
+       Header scroll state + scroll progress bar
+    --------------------------------------------------- */
+    var header = document.getElementById('site-header');
+    var progressBar = document.getElementById('scroll-progress');
+    var backToTop = document.getElementById('back-to-top');
+
+    function onScroll(){
+      var scrollY = window.scrollY || window.pageYOffset;
+      header.classList.toggle('scrolled', scrollY > 40);
+      backToTop.classList.toggle('visible', scrollY > 500);
+
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    backToTop.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+
+    /* ---------------------------------------------------
+       Mobile hamburger menu
+    --------------------------------------------------- */
+    var hamburger = document.getElementById('hamburger');
+    var navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', function(){
+      var isOpen = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    navLinks.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', function(){
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ---------------------------------------------------
+       Active nav link on scroll
+    --------------------------------------------------- */
+    var sections = document.querySelectorAll('section[id]');
+    var navAnchors = document.querySelectorAll('[data-nav]');
+
+    var navObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          var id = entry.target.getAttribute('id');
+          navAnchors.forEach(function(a){
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function(s){ navObserver.observe(s); });
+
+    /* ---------------------------------------------------
+       Scroll-reveal animations
+    --------------------------------------------------- */
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if (reduceMotion){
+      revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+    } else {
+      var revealObserver = new IntersectionObserver(function(entries, obs){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealEls.forEach(function(el){ revealObserver.observe(el); });
+    }
+
+    /* ---------------------------------------------------
+       Copy email to clipboard
+    --------------------------------------------------- */
+    var copyBtn = document.getElementById('copy-email');
+    var emailText = document.getElementById('email-text');
+    var originalEmail = emailText.textContent;
+
+    copyBtn.addEventListener('click', function(){
+      var email = 'santhoshravi53796@gmail.com';
+
+      function showCopied(){
+        emailText.textContent = 'Copied to clipboard';
+        copyBtn.classList.add('copied');
+        setTimeout(function(){
+          emailText.textContent = originalEmail;
+          copyBtn.classList.remove('copied');
+        }, 1800);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).then(showCopied).catch(function(){
+          window.prompt('Copy email address:', email);
+        });
+      } else {
+        window.prompt('Copy email address:', email);
+      }
+    });
+
+    /* ---------------------------------------------------
+       Neural network canvas — hero signature animation
+       Nodes drift slowly and connect to nearby nodes with
+       thin lines whose opacity is based on distance.
+    --------------------------------------------------- */
+    var canvas = document.getElementById('neural-canvas');
+    var ctx = canvas.getContext('2d');
+    var heroSection = document.getElementById('hero');
+    var nodes = [];
+    var W, H, DPR;
+    var rafId = null;
+
+    function resizeCanvas(){
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = heroSection.offsetWidth;
+      H = heroSection.offsetHeight;
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      initNodes();
+    }
+
+    function initNodes(){
+      var count = Math.max(24, Math.round((W * H) / 26000));
+      count = Math.min(count, 70);
+      nodes = [];
+      for (var i = 0; i < count; i++){
+        nodes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: (Math.random() - 0.5) * 0.18,
+          r: Math.random() * 1.6 + 1
+        });
+      }
+    }
+
+    function drawFrame(){
+      ctx.clearRect(0, 0, W, H);
+      var linkDist = Math.min(150, W / 6);
+
+      // update + draw nodes
+      for (var i = 0; i < nodes.length; i++){
+        var n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(139, 127, 255, 0.75)';
+        ctx.fill();
+      }
+
+      // draw connecting synapses
+      for (var a = 0; a < nodes.length; a++){
+        for (var b = a + 1; b < nodes.length; b++){
+          var dx = nodes[a].x - nodes[b].x;
+          var dy = nodes[a].y - nodes[b].y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < linkDist){
+            var opacity = (1 - dist / linkDist) * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(nodes[a].x, nodes[a].y);
+            ctx.lineTo(nodes[b].x, nodes[b].y);
+            ctx.strokeStyle = 'rgba(79, 209, 197, ' + opacity + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      rafId = requestAnimationFrame(drawFrame);
+    }
+
+    function startAnimation(){
+      resizeCanvas();
+      if (reduceMotion){
+        // Draw a single static frame, no continuous motion.
+        drawFrame = (function(originalDraw){
+          return function(){
+            ctx.clearRect(0, 0, W, H);
+            var linkDist = Math.min(150, W / 6);
+            for (var i = 0; i < nodes.length; i++){
+              var n = nodes[i];
+              ctx.beginPath();
+              ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(139, 127, 255, 0.75)';
+              ctx.fill();
+            }
+            for (var a = 0; a < nodes.length; a++){
+              for (var b = a + 1; b < nodes.length; b++){
+                var dx = nodes[a].x - nodes[b].x;
+                var dy = nodes[a].y - nodes[b].y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < linkDist){
+                  var opacity = (1 - dist / linkDist) * 0.35;
+                  ctx.beginPath();
+                  ctx.moveTo(nodes[a].x, nodes[a].y);
+                  ctx.lineTo(nodes[b].x, nodes[b].y);
+                  ctx.strokeStyle = 'rgba(79, 209, 197, ' + opacity + ')';
+                  ctx.lineWidth = 1;
+                  ctx.stroke();
+                }
+              }
+            }
+          };
+        })(drawFrame);
+        drawFrame();
+      } else {
+        drawFrame();
+      }
+    }
+
+    window.addEventListener('resize', function(){
+      if (rafId) cancelAnimationFrame(rafId);
+      startAnimation();
+    }, { passive: true });
+
+    startAnimation();
+
+  })();
+  </script>
+
+</body>
+</html>
